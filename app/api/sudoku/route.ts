@@ -1,7 +1,7 @@
 import { NextResponse } from "next/server";
 
-export async function GET() {
-  return NextResponse.json({
+const data: any = {
+  easy: {
     puzzle: [
       [5,3,0,0,7,0,0,0,0],
       [6,0,0,1,9,5,0,0,0],
@@ -24,5 +24,12 @@ export async function GET() {
       [2,8,7,4,1,9,6,3,5],
       [3,4,5,2,8,6,1,7,9]
     ]
-  });
+  },
+  medium: {},
+  hard: {}
+};
+
+export async function GET(req: Request) {
+  const level = new URL(req.url).searchParams.get("level") || "easy";
+  return NextResponse.json(data[level] || data.easy);
 }
